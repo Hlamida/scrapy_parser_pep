@@ -11,18 +11,25 @@ from pep_parse.constants import (
 
 BASE_DIR = Path(__file__).parents[1]
 
+
 class PepParsePipeline:
+    """Формирует файл со статистикой, сохраняет в '/results'."""
 
     def open_spider(self, spider):
+        """Создаёт словарь для хранения статистики."""
+
         self.pre_results = defaultdict(int)
 
     def process_item(self, item, spider):
+        """Считаетколичество разных статусов."""
 
         self.pre_results[item['status']] += 1
 
         return item
 
     def close_spider(self, spider):
+        """Формирует файл, сохраняет его."""
+
         total = sum(self.pre_results.values())
         results_dir = BASE_DIR / RESULTS_DIR
         results_dir.mkdir(exist_ok=True)
