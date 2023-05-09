@@ -24,11 +24,12 @@ class PepParsePipeline:
 
     def close_spider(self, spider):
         total = sum(self.pre_results.values())
-        RESULTS_DIR.mkdir(exist_ok=True)
+        results_dir = BASE_DIR / RESULTS_DIR
+        results_dir.mkdir(exist_ok=True)
         now = dt.datetime.now()
         now_formated = now.strftime(DATETIME_FORMAT)
         file_name = f'status_summary_{now_formated}.csv'
-        file_path = RESULTS_DIR / file_name
+        file_path = results_dir / file_name
         with open(file_path, 'w', encoding=ENCODING_FORMAT) as f:
             writer = csv.writer(
                 f, quoting=csv.QUOTE_MINIMAL, dialect=DIALECT_FORMAT,

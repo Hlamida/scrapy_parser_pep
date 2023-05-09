@@ -11,7 +11,7 @@ DIALECT_FORMAT = 'unix'
 
 # dirs & files
 BASE_DIR = Path(__file__).parents[1]
-RESULTS_DIR = BASE_DIR / 'results'
+RESULTS_DIR = 'results'
 
 # settings
 PIPELINE_TURN = 300
