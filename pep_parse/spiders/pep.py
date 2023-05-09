@@ -10,7 +10,7 @@ from pep_parse.items import PepParseItem
 class PepSpider(scrapy.Spider):
     name = 'pep'
     allowed_domains = ['peps.python.org']
-    start_urls = ['http://peps.python.org/']
+    start_urls = ['https://peps.python.org/']
 
     def parse_pep(self, response):
         page_title = response.css('h1.page-title::text').get()
@@ -28,6 +28,6 @@ class PepSpider(scrapy.Spider):
         all_peps = response.css(
             '#numerical-index a[href^="pep"]::attr(href)'
             ).getall()
-        for short_link in all_peps:
+        for short_link in all_peps[:10]:
             pep_link = urljoin(MAIN_PEPS_URL, short_link)
             yield response.follow(pep_link, callback=self.parse_pep)

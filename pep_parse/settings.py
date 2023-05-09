@@ -1,3 +1,5 @@
+from pep_parse.constants import PIPELINE_TURN
+
 BOT_NAME = 'pep_parse'
 
 SPIDER_MODULES = ['pep_parse.spiders']
@@ -15,5 +17,5 @@ FEEDS = {
 }
 
 ITEM_PIPELINES = {
-    'pep_parse.pipelines.PepParsePipeline': 300,
+    'pep_parse.pipelines.PepParsePipeline': PIPELINE_TURN,
 }
