@@ -19,7 +19,7 @@ class PepSpider(scrapy.Spider):
 
         all_peps = response.css(
             '#numerical-index a[href^="pep"]::attr(href)'
-            ).getall()
+        ).getall()
         for short_link in all_peps[:10]:
             pep_link = urljoin(MAIN_PEPS_URL, short_link)
             yield response.follow(pep_link, callback=self.parse_pep)
