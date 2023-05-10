@@ -1,6 +1,6 @@
 number,name,status
+1,PEP Purpose and Guidelines,Active
 3,Guidelines for Handling Bug Reports,Withdrawn
-4,Deprecation of Standard Modules,Active
 5,Guidelines for Language Evolution,Active
 2,Procedure for Adding New Modules,Active
-1,PEP Purpose and Guidelines,Active
+4,Deprecation of Standard Modules,Active
