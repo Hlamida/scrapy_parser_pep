@@ -12,25 +12,28 @@ from pep_parse.constants import (
 BASE_DIR = Path(__file__).parents[1]
 
 
-class PepParsePipeline:
+class PepParsePipeline():
     """Формирует файл со статистикой, сохраняет в '/results'."""
 
-    def open_spider(self, spider):
+    def open_spider(self, spider) -> None:
         """Создаёт словарь для хранения статистики."""
 
-        self.pre_results = defaultdict(int)
+        self.pre_results: defaultdict = defaultdict(int)
 
-    def process_item(self, item, spider):
-        """Считаетколичество разных статусов."""
+    def process_item(self, item: dict, spider) -> dict:
+        """Считает количество разных статусов."""
 
         self.pre_results[item['status']] += 1
 
         return item
 
-    def close_spider(self, spider):
+    def close_spider(self, spider) -> None:
         """Формирует файл, сохраняет его."""
 
-        total = sum(self.pre_results.values())
+        results = {'Статус': 'Количество'}
+        results.update(self.pre_results)
+        results['Total'] = sum(self.pre_results.values())
+
         results_dir = BASE_DIR / RESULTS_DIR
         results_dir.mkdir(exist_ok=True)
         now = dt.datetime.now()
@@ -41,8 +44,6 @@ class PepParsePipeline:
             writer = csv.writer(
                 f, quoting=csv.QUOTE_MINIMAL, dialect=DIALECT_FORMAT,
             )
-            writer.writerow(['Статус', 'Количество'])
             writer.writerows(
-                [(key, value) for key, value in self.pre_results.items()]
+                [(key, value) for key, value in results.items()]
             )
-            writer.writerow(['Total', f'{total}'])
